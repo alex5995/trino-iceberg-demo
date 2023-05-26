@@ -1,0 +1,4 @@
+Table Name,SheetId_sheetname,Owner,Notes
+metadata,gsheet-metadata-id#tables,trino,Self reference to this sheet as table
+months,gsheet-calendar-id#months,trino,
+years,gsheet-calendar-id#years,trino,

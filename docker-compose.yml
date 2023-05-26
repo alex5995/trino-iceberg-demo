@@ -1,0 +1,57 @@
+version: "3.7"
+
+services:
+  trino:
+    image: trinodb/trino
+    volumes:
+      - ./catalog:/etc/trino/catalog
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./queries/init_postgres.sql:/docker-entrypoint-initdb.d/init_postgres.sql
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "psql", "-U", "postgres", "postgres"]
+
+  minio:
+    image: quay.io/minio/minio
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    volumes:
+      - minio:/data
+    ports:
+      - 9000:9000
+      - 9090:9090
+    command: server /data --console-address ":9090"
+
+  hive-metastore:
+    image: naushadh/hive-metastore
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_DB: hive_metastore
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      AWS_ACCESS_KEY_ID: minio
+      AWS_SECRET_ACCESS_KEY: minio123
+      S3_ENDPOINT_URL: minio:9000
+      S3_BUCKET: test
+      S3_PREFIX: data
+    ports:
+      - 9083:9083
+
+volumes:
+  postgres:
+    name: trino_postgres
+  minio:
+    name: trino_minio
