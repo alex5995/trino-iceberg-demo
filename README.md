@@ -1,8 +1,14 @@
-### Get Google Sheets credentials
+## Before starting
+To setup this project, you need:
+- pyenv
+- direnv
+- aws-cli
+
+## Get Google Sheets credentials
 
 Follow [this tutorial](https://trino.io/docs/current/connector/googlesheets.html#credentials) to get your `google-sheets-credentials.json` file and place it under the `catalog` folder.
 
-### Create Google Sheets
+## Create Google Sheets
 
 Create one Google Sheet with two sheets named `months` and `years`. Insert the data from `sheets/calendar_months.csv` and `sheets/calendar_years.csv` in the two sheets.
 
@@ -11,7 +17,7 @@ Now replace `gsheet-metadata-id` and `gsheet-calendar-id` with the actual ids in
 
 Finally replace `gsheet-metadata-id` with the actual id in the `catalog/sheets.properties` file.
 
-### Setup the project
+## Setup the project
 
 Execute `docker compose up -d minio`. Then run
 ```
@@ -23,3 +29,5 @@ aws s3api create-bucket --bucket test \
 to create a bucket.
 
 Finally start all the services with `docker compose up -d`. Now you can play with `queries/trino_example.sql`.
+
+When you have created the `taxis` iceberg table, you can also play with `pyiceberg_example.py`.
