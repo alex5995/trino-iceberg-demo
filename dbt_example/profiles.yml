@@ -1,0 +1,11 @@
+dbt_example:
+  target: dev
+  outputs:
+    dev:
+      type: trino
+      method: none
+      user: admin
+      host: localhost
+      port: 8080
+      database: dwh
+      schema: default

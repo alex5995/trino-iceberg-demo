@@ -19,13 +19,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: hive_metastore; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE hive_metastore;
-ALTER DATABASE hive_metastore OWNER TO postgres;
-
---
 -- Name: cities; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -43,6 +36,13 @@ COPY public.cities (id, city) FROM stdin;
 1	Milano
 2	Sofia
 \.
+
+--
+-- Name: hive_metastore; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE hive_metastore;
+ALTER DATABASE hive_metastore OWNER TO postgres;
 
 --
 -- PostgreSQL database dump complete

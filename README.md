@@ -1,8 +1,10 @@
 ## Before starting
-To setup this project, you need:
-- pyenv
-- direnv
+
+To setup this project you need:
 - aws-cli
+- direnv
+- docker
+- pyenv
 
 ## Get Google Sheets credentials
 
@@ -17,7 +19,7 @@ Now replace `gsheet-metadata-id` and `gsheet-calendar-id` with the actual ids in
 
 Finally replace `gsheet-metadata-id` with the actual id in the `catalog/sheets.properties` file.
 
-## Setup the project
+## Setup docker containers
 
 Execute `docker compose up -d minio`. Then run
 ```
@@ -28,6 +30,30 @@ aws s3api create-bucket --bucket test \
 ```
 to create a bucket.
 
-Finally start all the services with `docker compose up -d`. Now you can play with `queries/trino_example.sql`.
+Finally start all the services with `docker compose up -d`.
 
-When you have created the `taxis` iceberg table, you can also play with `pyiceberg_example.py`.
+## Setup python environment
+
+Run the following commands:
+- `pyenv install 3.11.3`
+- `direnv allow`
+- `pip install -r requirements.txt`
+
+## Execute the dbt project
+
+First of all run `cd dbt_example`.
+
+Then execute `dbt run-operation create_nyc_taxis_table` to create an iceberg table named `taxis` under the `nyc` schema.
+
+Finally launch `dbt run`. This will create an iceberg table named `random_table` and an iceberg view named `random_view` under the `default` schema.
+
+## Play with pyiceberg
+
+The `pyiceberg_example.py` file contains an example about how to use pyiceberg and duckdb to query an iceberg table directly in python.
+
+## Clean the environment
+
+Run the following commands:
+- `rm -rf .direnv`
+- `docker compose down`
+- `docker volume rm trino_minio trino_postgres`
