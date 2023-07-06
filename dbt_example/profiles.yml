@@ -7,5 +7,5 @@ dbt_example:
       user: admin
       host: localhost
       port: 8080
-      database: datalake
+      database: warehouse
       schema: default

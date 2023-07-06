@@ -14,8 +14,8 @@ SELECT
 	c.city,
 	m.month,
 	y.year
-FROM datalake.nyc.taxis AS t
-LEFT JOIN pg.public.cities AS c
+FROM warehouse.nyc.taxis AS t
+LEFT JOIN postgres.public.cities AS c
 	ON t.vendor_id = c.id
 LEFT JOIN sheets.default.months AS m
 	ON t.vendor_id = CAST(m.id AS BIGINT)

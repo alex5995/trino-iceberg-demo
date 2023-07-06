@@ -21,16 +21,7 @@ Finally replace `gsheet-metadata-id` with the actual id in the `catalog/sheets.p
 
 ## Setup docker containers
 
-Execute `docker compose up -d minio`. Then run
-```
-AWS_ACCESS_KEY_ID=minio \
-AWS_SECRET_ACCESS_KEY=minio123 \
-aws s3api create-bucket --bucket test \
---endpoint http://localhost:9000
-```
-to create a bucket.
-
-Finally start all the services with `docker compose up -d`.
+Just run `docker compose up -d`.
 
 ## Setup python environment
 

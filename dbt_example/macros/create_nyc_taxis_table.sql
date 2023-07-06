@@ -2,10 +2,10 @@
 
     {% set query %}
 
-        CREATE SCHEMA datalake.nyc
+        CREATE SCHEMA warehouse.nyc
         ;
 
-        CREATE TABLE datalake.nyc.taxis (
+        CREATE TABLE warehouse.nyc.taxis (
             vendor_id BIGINT,
             trip_id BIGINT,
             trip_distance REAL,
@@ -16,7 +16,7 @@
         )
         ;
 
-        INSERT INTO datalake.nyc.taxis
+        INSERT INTO warehouse.nyc.taxis
         VALUES
             (1, 1000371, 1.8, 15.32, 'N'),
             (2, 1000372, 2.5, 22.15, 'N'),
